@@ -2,7 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-/* custom scrollbar (optional) */
-::-webkit-scrollbar { width: 0.5rem; }               /* fallback */
-::-webkit-scrollbar { @apply w-2; }
-::-webkit-scrollbar-thumb { @apply bg-primary rounded-lg; }
+@layer utilities {
+  /* brand-coloured bullets */
+  .prose li::marker {
+    @apply text-brand;
+  }
+
+  /* custom scrollbar (optional) */
+  ::-webkit-scrollbar { width: 0.5rem; /* fallback */ }
+  ::-webkit-scrollbar { @apply w-2; }
+  ::-webkit-scrollbar-thumb { @apply bg-brand rounded-lg; }
+}
+
+/* prettier Markdown bullet / number lists */
+.prose ul,
+.prose ol { @apply list-disc list-inside pl-5 my-2 text-white; }

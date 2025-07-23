@@ -56,19 +56,8 @@ export default function Chat() {
   useEffect(() => {
     const el = listRef.current;
     if (!el) return;
-    let frame: number;
-    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 50;
-    function smoothScrollToBottom() {
-      const distance = el.scrollHeight - el.scrollTop - el.clientHeight;
-      if (distance < 1) return; // already at bottom
-      const step = Math.min(30, distance / 12);
-      el.scrollBy(0, step);
-      frame = requestAnimationFrame(smoothScrollToBottom);
-    }
-    if (atBottom) {
-      smoothScrollToBottom();
-    }
-    return () => cancelAnimationFrame(frame);
+    // always auto-scroll on new messages
+    el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
   }, [turns]);
 
   return (
@@ -76,7 +65,7 @@ export default function Chat() {
       <div className="px-4 py-2 bg-brand text-black font-semibold">KnowledgeAI Chat</div>
       <div
         ref={listRef}
-        className="relative flex-1 overflow-y-auto px-6 py-4 space-y-2 bg-slate-900"
+        className="relative flex-1 overflow-y-auto px-6 py-4 space-y-5 bg-slate-900"
       >
         {turns.filter(t => clean(t.content)).map(t => (
           <div
@@ -90,13 +79,7 @@ export default function Chat() {
             }`}
           >
             {t.role === 'bot' ? (
-              <div className={
-                "prose prose-invert max-w-none break-words text-sm\n" +
-                "  prose-p:my-1 prose-li:my-[1px] prose-li:pl-2\n" +
-                "  prose-ul:mt-0 prose-ul:mb-0 prose-ul:pl-3\n" +
-                "  prose-pre:p-3 prose-pre:bg-slate-800 prose-pre:rounded\n" +
-                "  prose-code:before:content-none prose-code:after:content-none"
-              }>
+              <div className="prose prose-invert max-w-none break-words text-sm prose-p:my-1 prose-li:my-1 prose-ul:mt-0 prose-ul:mb-1 prose-pre:p-3 prose-pre:bg-slate-800 prose-pre:rounded prose-code:before:content-none prose-code:after:content-none">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
                   {t.content}
                 </ReactMarkdown>

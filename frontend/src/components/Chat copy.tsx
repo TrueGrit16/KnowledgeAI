@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';      // optional
 import remarkGfm from 'remark-gfm';
-
-const clean = (s: string) => s.trim();
 
 type Turn = { id: string; role: 'user' | 'bot' | 'error'; content: string };
 
@@ -15,40 +12,64 @@ export default function Chat() {
   const listRef     = useRef<HTMLDivElement>(null);
 
   const send = async () => {
+    let botId = '';
     if (!text.trim() || loading) return;
     // add user turn
     setTurns(t => [...t, { id: crypto.randomUUID(), role: 'user', content: text.trim() }]);
     setText('');
     setLoading(true);
 
-    const botId = crypto.randomUUID();
-    // add placeholder for bot
+    // prepare bot placeholder
+    botId = crypto.randomUUID();
     setTurns(t => [...t, { id: botId, role: 'bot', content: '' }]);
 
     try {
-      const response = await axios.post('/chat', { text: text.trim(), mode });
-      // pick out the right field if backend still returns { sop: "...", ... }, otherwise fallback
-      let answer: string;
-      if (response.data && typeof response.data === 'object' && mode in response.data) {
-        answer = clean((response.data as Record<string, string>)[mode]);
-      } else {
-        answer = clean(String(response.data));
-      }
-      // update bot placeholder with full answer
-      setTurns(prev =>
-        prev.map(t =>
-          t.id === botId ? { ...t, content: answer } : t
-        )
+      const response = await fetch(
+        `/chat/stream?text=${encodeURIComponent(text.trim())}&mode=${mode}`
       );
+      if (!response.body) throw new Error('No response body');
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        // split on SSE delimiter
+        const parts = buffer.split('\n\n');
+        buffer = parts.pop() || '';
+        for (const chunk of parts) {
+          if (!chunk.startsWith('data:')) continue;
+          const data = chunk.slice(5).trim();
+          if (data === '[DONE]') {
+            setLoading(false);
+            reader.cancel();
+            return;
+          }
+          try {
+            const json = JSON.parse(data);
+            const delta = json.choices?.[0]?.delta?.content || '';
+            if (delta) {
+              setTurns(prev =>
+                prev.map(turn =>
+                  turn.id === botId ? { ...turn, content: turn.content + delta } : turn
+                )
+              );
+            }
+          } catch {
+            // ignore parsing errors
+          }
+        }
+      }
+      setLoading(false);
     } catch (err: any) {
       setTurns(prev =>
-        prev.map(t =>
-          t.id === botId
-            ? { ...t, role: 'error', content: err.message || 'Request failed' }
-            : t
+        prev.map(turn =>
+          turn.id === botId
+            ? { ...turn, role: 'error', content: err.message || 'Stream error' }
+            : turn
         )
       );
-    } finally {
       setLoading(false);
     }
   };
@@ -56,51 +77,35 @@ export default function Chat() {
   useEffect(() => {
     const el = listRef.current;
     if (!el) return;
-    let frame: number;
-    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 50;
-    function smoothScrollToBottom() {
-      const distance = el.scrollHeight - el.scrollTop - el.clientHeight;
-      if (distance < 1) return; // already at bottom
-      const step = Math.min(30, distance / 12);
-      el.scrollBy(0, step);
-      frame = requestAnimationFrame(smoothScrollToBottom);
-    }
+    // only auto-scroll if near bottom
+    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 100;
     if (atBottom) {
-      smoothScrollToBottom();
+      el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
     }
-    return () => cancelAnimationFrame(frame);
   }, [turns]);
 
   return (
-    <div className="flex flex-col h-screen bg-slate-900 font-sans text-sm">
+    <div className="flex flex-col h-screen bg-slate-900">
       <div className="px-4 py-2 bg-brand text-black font-semibold">KnowledgeAI Chat</div>
       <div
         ref={listRef}
-        className="relative flex-1 overflow-y-auto px-6 py-4 space-y-2 bg-slate-900"
+        className="relative flex-1 overflow-y-auto p-4 space-y-3"
       >
-        {turns.filter(t => clean(t.content)).map(t => (
+        {turns.map(t => (
           <div
             key={t.id}
-            className={`rounded-lg px-4 py-2 whitespace-pre-wrap ${
+            className={
               t.role === 'user'
-                ? 'self-end bg-brand/90 text-black shadow-md'
+                ? 'self-end max-w-md bg-brand/80 rounded-lg p-2 text-black'
                 : t.role === 'bot'
-                ? 'self-start bg-slate-700 text-white shadow'
-                : 'self-start bg-red-600 text-white shadow'
-            }`}
+                ? 'self-start max-w-prose bg-slate-700 rounded-lg p-2 text-white'
+                : 'self-start max-w-prose bg-red-700 rounded-lg p-2 text-white'
+            }
           >
             {t.role === 'bot' ? (
-              <div className={
-                "prose prose-invert max-w-none break-words text-sm\n" +
-                "  prose-p:my-1 prose-li:my-[1px] prose-li:pl-2\n" +
-                "  prose-ul:mt-0 prose-ul:mb-0 prose-ul:pl-3\n" +
-                "  prose-pre:p-3 prose-pre:bg-slate-800 prose-pre:rounded\n" +
-                "  prose-code:before:content-none prose-code:after:content-none"
-              }>
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {t.content}
-                </ReactMarkdown>
-              </div>
+              <ReactMarkdown remarkPlugins={[remarkGfm]} className="prose prose-invert max-w-none">
+                {t.content}
+              </ReactMarkdown>
             ) : (
               <>{t.content}</>
             )}
@@ -112,7 +117,7 @@ export default function Chat() {
           value={mode}
           onChange={e => setMode(e.target.value as any)}
           disabled={loading}
-          className="bg-slate-700 rounded text-sm px-2 py-1 text-white border border-slate-500 hover:border-white transition"
+          className="bg-slate-700 rounded text-sm px-2 text-white"
         >
           <option value="sop">SOP</option>
           <option value="rca">RCA</option>

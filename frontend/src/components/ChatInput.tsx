@@ -25,12 +25,12 @@ const ChatInput: React.FC<Props> = ({ onSend, disabled }) => {
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Ask something…"
-        className="flex-1 bg-transparent focus:outline-none text-sm dark:text-gray-50"
+        className="flex-1 bg-transparent text-white placeholder-gray-400 focus:outline-none"
         disabled={disabled}
       />
       <button
         disabled={disabled}
-        className="bg-primary disabled:opacity-40 text-white rounded px-4 py-1 text-sm"
+        className="bg-brand-primary disabled:opacity-40 text-white rounded px-4 py-1 text-sm"
       >
         Send
       </button>

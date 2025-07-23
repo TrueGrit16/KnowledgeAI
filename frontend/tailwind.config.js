@@ -4,12 +4,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: "#08f9f5",   // bright-blue cyan
-          dark:    "#008d97",   // deeper shade for dark UI
-        },
+        brand: "#08f9f5",
+        "brand-dark": "#008d97",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    /* other plugins… */
+  ],
 };
