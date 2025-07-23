@@ -1,0 +1,6 @@
+# KnowledgeAI output & working folders
+vector_store/
+clean/
+logs/
+raw/
+raw_imgs/
