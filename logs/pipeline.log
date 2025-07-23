@@ -1,0 +1,178 @@
+2025-07-22 14:46:00,257 ERROR    root | ❌ Ingest failed for /Users/kundan.jha/KnowledgeAI/raw/Incident Report  TIC-IPS20250225-003552 - Unable to Proceed with RD_v4.docx
+Traceback (most recent call last):
+  File "/Users/kundan.jha/KnowledgeAI/scripts/extract_and_caption.py", line 37, in <module>
+    blocks = partition(str(fp))
+             ^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/auto.py", line 292, in partition
+    elements = partition(filename=filename, file=file, **partitioning_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/common/metadata.py", line 162, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 86, in partition_xlsx
+    opts.sheets.items(), start=starting_page_number
+    ^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/utils.py", line 154, in __get__
+    value = self._fget(obj)
+            ^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 198, in sheets
+    raise UnprocessableEntityError("XLSX file is password protected.")
+unstructured.errors.UnprocessableEntityError: XLSX file is password protected.
+
+2025-07-22 14:46:01,639 ERROR    root | ❌ Ingest failed for /Users/kundan.jha/KnowledgeAI/raw/Incident Report TIC-IPS20240920-001982 - Unable to upload mandatory documents v1.0.docx
+Traceback (most recent call last):
+  File "/Users/kundan.jha/KnowledgeAI/scripts/extract_and_caption.py", line 38, in <module>
+    md = "\n".join(b.to_markdown() for b in blocks)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/KnowledgeAI/scripts/extract_and_caption.py", line 38, in <genexpr>
+    md = "\n".join(b.to_markdown() for b in blocks)
+                   ^^^^^^^^^^^^^
+AttributeError: 'Header' object has no attribute 'to_markdown'
+
+2025-07-22 14:46:01,843 ERROR    root | ❌ Ingest failed for /Users/kundan.jha/KnowledgeAI/raw/Incident Report  TIC-IPS20250224-003545 - Birth Cert not collected_v4.docx
+Traceback (most recent call last):
+  File "/Users/kundan.jha/KnowledgeAI/scripts/extract_and_caption.py", line 37, in <module>
+    blocks = partition(str(fp))
+             ^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/auto.py", line 292, in partition
+    elements = partition(filename=filename, file=file, **partitioning_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/common/metadata.py", line 162, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 86, in partition_xlsx
+    opts.sheets.items(), start=starting_page_number
+    ^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/utils.py", line 154, in __get__
+    value = self._fget(obj)
+            ^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 198, in sheets
+    raise UnprocessableEntityError("XLSX file is password protected.")
+unstructured.errors.UnprocessableEntityError: XLSX file is password protected.
+
+2025-07-22 15:15:56,636 ERROR    root | ❌ Skipped Incident Report  TIC-IPS20250225-003552 - Unable to Proceed with RD_v4.docx
+Traceback (most recent call last):
+  File "/Users/kundan.jha/KnowledgeAI/scripts/extract_and_caption.py", line 53, in <module>
+    els = partition(str(fp))
+          ^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/auto.py", line 292, in partition
+    elements = partition(filename=filename, file=file, **partitioning_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/common/metadata.py", line 162, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 86, in partition_xlsx
+    opts.sheets.items(), start=starting_page_number
+    ^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/utils.py", line 154, in __get__
+    value = self._fget(obj)
+            ^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 198, in sheets
+    raise UnprocessableEntityError("XLSX file is password protected.")
+unstructured.errors.UnprocessableEntityError: XLSX file is password protected.
+
+2025-07-22 15:15:57,622 INFO     root | 📝 Extracted Incident Report TIC-IPS20240920-001982 - Unable to upload mandatory documents v1.0.docx
+2025-07-22 15:15:57,637 ERROR    root | ❌ Skipped Incident Report  TIC-IPS20250224-003545 - Birth Cert not collected_v4.docx
+Traceback (most recent call last):
+  File "/Users/kundan.jha/KnowledgeAI/scripts/extract_and_caption.py", line 53, in <module>
+    els = partition(str(fp))
+          ^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/auto.py", line 292, in partition
+    elements = partition(filename=filename, file=file, **partitioning_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/common/metadata.py", line 162, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/chunking/dispatch.py", line 74, in wrapper
+    elements = func(*args, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 86, in partition_xlsx
+    opts.sheets.items(), start=starting_page_number
+    ^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/utils.py", line 154, in __get__
+    value = self._fget(obj)
+            ^^^^^^^^^^^^^^^
+  File "/Users/kundan.jha/miniforge/envs/knowledge-ai/lib/python3.12/site-packages/unstructured/partition/xlsx.py", line 198, in sheets
+    raise UnprocessableEntityError("XLSX file is password protected.")
+unstructured.errors.UnprocessableEntityError: XLSX file is password protected.
+
+2025-07-22 15:23:04,118 INFO     root | 📝 Extracted Case Creation Flow_v1.1_20230113.pptx
+2025-07-22 15:31:16,061 INFO     datasets | PyTorch version 2.7.1 available.
+2025-07-22 15:31:29,242 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 15:36:04,186 INFO     datasets | PyTorch version 2.7.1 available.
+2025-07-22 15:36:05,018 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 15:38:09,703 INFO     datasets | PyTorch version 2.7.1 available.
+2025-07-22 15:38:10,632 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 15:38:10,706 INFO     sentence_transformers.SentenceTransformer | Load pretrained SentenceTransformer: BAAI/bge-base-en
+2025-07-22 15:38:32,752 INFO     httpx | HTTP Request: GET https://chroma-onnx-models.s3.amazonaws.com/all-MiniLM-L6-v2/onnx.tar.gz "HTTP/1.1 200 OK"
+2025-07-22 15:38:48,352 INFO     root | ✅ Embedding complete
+2025-07-22 16:09:49,468 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 16:13:59,218 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 16:34:57,474 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 16:41:51,080 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 16:43:12,272 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 16:45:34,220 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 17:05:06,121 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:14:01,647 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 17:14:56,593 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 17:15:09,870 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 17:16:10,697 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:21:55,513 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:24:06,186 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 17:24:20,234 INFO     root | 🔥 Received SOP request: case creation in IPS
+2025-07-22 17:24:42,897 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:27:47,527 INFO     root | 🔥 Received SOP request: case creation in IPS
+2025-07-22 17:28:12,623 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:30:58,287 INFO     root | 🔥 Received SOP request: case creation in IPS
+2025-07-22 17:31:33,171 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:35:28,721 INFO     root | 🔥 Received SOP request: case creation in IPS
+2025-07-22 17:35:56,802 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:39:00,172 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 17:44:41,993 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:03:17,452 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 18:03:58,353 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:44:50,896 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 18:44:50,896 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 18:44:51,454 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 18:45:33,980 INFO     root | 🔥 RCA request: IPS case not created for submitted birth cert
+2025-07-22 18:45:40,252 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:46:16,091 INFO     root | 🔥 Received SOP request: case creation in IPS
+2025-07-22 18:46:49,790 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:52:45,449 INFO     root | 🔥 Received SOP request: case creation in IPS
+2025-07-22 18:53:07,298 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:56:49,872 INFO     root | 🔥 RCA request: TESTING: Application downtime due to memory leak
+2025-07-22 18:56:56,990 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:56:57,077 INFO     root | 🔥 Received SOP request: TESTING: Case creation in IPS
+2025-07-22 18:57:21,947 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:57:22,044 INFO     root | 🎫 Ticket received: TESTING: Cannot submit expense report
+2025-07-22 18:57:32,207 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 18:57:32,324 INFO     root | 🔥 Received SOP request: TESTING: case creation in IPS
+2025-07-22 18:57:59,941 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 19:02:19,683 INFO     root | 🔥 RCA request: TESTING: Application downtime due to memory leak
+2025-07-22 19:02:25,057 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 19:02:25,132 INFO     root | 🔥 Received SOP request: TESTING: Case creation in IPS
+2025-07-22 19:02:53,455 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 19:02:53,506 INFO     root | 🎫 Ticket received: TESTING: Cannot submit expense report
+2025-07-22 19:03:05,407 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 19:03:05,503 INFO     root | 🔥 RCA request: TESTING: Routing from SUPER to RCA
+2025-07-22 19:03:10,911 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 19:03:10,971 INFO     root | 🔥 Received SOP request: TESTING: Routing from SUPER to SOP
+2025-07-22 19:03:34,489 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 19:03:34,601 INFO     root | 🎫 Ticket received: TESTING: Routing from SUPER to TICKET
+2025-07-22 19:03:44,713 INFO     httpx | HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-07-22 20:06:08,334 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 20:06:08,334 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 20:06:08,443 INFO     chromadb.telemetry.product.posthog | Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-07-22 20:41:34,781 INFO     root | 🛑 Super agent shutting down.
+2025-07-22 20:41:34,781 INFO     root | 🛑 Ticket agent shutting down.
+2025-07-22 20:41:34,781 INFO     root | 🛑 SOP agent shutting down.
+2025-07-22 20:41:34,782 INFO     root | 🛑 RCA agent shutting down.

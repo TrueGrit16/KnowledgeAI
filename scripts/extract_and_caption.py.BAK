@@ -1,0 +1,54 @@
+from logconf import logging
+from pathlib import Path
+from itertools import chain
+# from unstructured.documents import partition_auto
+from unstructured.partition.auto import partition
+from transformers import Blip2Processor, Blip2ForConditionalGeneration
+from pptx import Presentation
+from PIL import Image
+import uuid, json, traceback, torch
+
+RAW      = Path("~/KnowledgeAI/raw").expanduser()
+RAW_IMG  = Path("~/KnowledgeAI/raw_imgs").expanduser()
+CLEAN    = Path("~/KnowledgeAI/clean").expanduser()
+
+proc  = Blip2Processor.from_pretrained("Salesforce/blip2-flan-t5-xl")
+model = Blip2ForConditionalGeneration.from_pretrained(
+            "Salesforce/blip2-flan-t5-xl", torch_dtype=torch.float16
+        ).to("mps")
+
+def caption(img):
+    try:
+        inputs = proc(images=Image.open(img), return_tensors="pt").to("mps")
+        ids = model.generate(**inputs, max_new_tokens=25)
+        return proc.decode(ids[0], skip_special_tokens=True)
+    except Exception:
+        logging.exception(f"Caption failed: {img}")
+        return ""
+
+# for fp in RAW.rglob("*.[pP][pP][tT][xX]") | RAW.rglob("*.[dD][oO][cC][xX]") | RAW.rglob("*.pdf"):
+for fp in chain(
+        RAW.rglob("*.[pP][pP][tT][xX]"),
+        RAW.rglob("*.[dD][oO][cC][xX]"),
+        RAW.rglob("*.pdf")):
+    try:
+        doc_id = uuid.uuid4().hex
+        # blocks = partition_auto(str(fp))
+        blocks = partition(str(fp))
+        md = "\n".join(b.to_markdown() for b in blocks)
+
+        if fp.suffix.lower() == ".pptx":
+            for sidx, slide in enumerate(Presentation(fp).slides):
+                for shp in slide.shapes:
+                    if shp.shape_type == 13:                       # picture
+                        img_path = RAW_IMG/f"{doc_id}_{sidx}.png"
+                        with open(img_path, "wb") as f:
+                            f.write(shp.image.blob)
+                        md += f"\n\n![{caption(img_path)}]({img_path})"
+
+        out = {"id": doc_id, "title": fp.stem, "body": md, "source": str(fp)}
+        (CLEAN/f"{doc_id}.json").write_text(json.dumps(out))
+        logging.info(f"📝 Extracted {fp}")
+    except Exception:
+        logging.error(f"❌ Ingest failed for {fp}\n{traceback.format_exc()}")
+
