@@ -1,5 +1,5 @@
 # KnowledgeAI output & working folders
-vector_store/
+**/*vector_store*/
 clean/
 logs/
 raw/
