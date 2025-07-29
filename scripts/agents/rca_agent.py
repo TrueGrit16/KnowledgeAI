@@ -27,7 +27,7 @@ def root_cause_analysis(req: RCARequest):
 Context:
 {context}
 
-Output a concise Root Cause Analysis (RCA) in 5-7 lines.
+Output a concise Root Cause Analysis (RCA) in 5-7 lines. **When you answer, ALWAYS use markdown lists or sub-lists with numbered or bulleted steps.**
 """
         res = client.chat.completions.create(
             model="gpt-4",

@@ -4,3 +4,13 @@ clean/
 logs/
 raw/
 raw_imgs/
+
+# Frontend build artifacts and node modules
+frontend/node_modules/
+frontend/dist/
+frontend/.next/
+frontend/.vite/
+
+# Logs and environment
+*.log
+.env

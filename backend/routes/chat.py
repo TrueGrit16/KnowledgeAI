@@ -1,0 +1,69 @@
+# backend/routes/chat.py
+from fastapi import APIRouter, HTTPException
+from sse_starlette.sse import EventSourceResponse, ServerSentEvent
+from pydantic import BaseModel, Field
+import httpx, logging, os, uuid, datetime as dt
+import json
+
+router = APIRouter()
+SUPER_URL = "http://127.0.0.1:9191/super"      # already running
+CHAT_LOG  = os.getenv("CHAT_LOG", "backend/logs/chat.log")
+
+class ChatReq(BaseModel):
+    text: str = Field(..., description="User prompt")
+    mode: str = Field("sop", pattern="^(sop|rca|ticket)$")
+
+@router.post("/chat")
+async def chat(req: ChatReq):
+    payload = {
+        "mode": req.mode,
+        "payload": {"topic": req.text}
+    }
+    async with httpx.AsyncClient(timeout=45) as client:
+        try:
+            res = await client.post(SUPER_URL, json=payload)
+            res.raise_for_status()
+            data = res.json()
+        except Exception as e:
+            logging.exception("chat→super error")
+            raise HTTPException(502, f"Agent error: {e}")
+
+    # ---- simple log ----
+    line = {
+        "id": uuid.uuid4().hex,
+        "ts": dt.datetime.utcnow().isoformat(),
+        "mode": req.mode,
+        "question": req.text,
+        "answer": data,
+    }
+    with open(CHAT_LOG, "a") as fp:
+        fp.write(f"{line}\n")
+
+    # Return only the first value (agent answer)
+    return list(data.values())[0]
+        
+@router.get("/chat/stream")
+async def chat_stream(text: str, mode: str = "sop"):
+    """Server-Sent Events stream so the FE can render tokens chunk-by-chunk."""
+    payload = {"mode": mode, "payload": {"topic": text}}
+
+    async def event_generator():
+        async with httpx.AsyncClient(timeout=None) as client:
+            async with client.stream("POST", SUPER_URL, json=payload) as res:
+                res.raise_for_status()
+                async for line in res.aiter_lines():
+                    if not line:
+                        continue
+                    if line.strip() == "[DONE]":
+                        # signal end of stream
+                        yield ServerSentEvent(data="", event="end")
+                        break
+                    try:
+                        chunk = json.loads(line)
+                        # extract the text for the chosen mode
+                        text_chunk = chunk.get(mode) or next(iter(chunk.values()))
+                        yield ServerSentEvent(data=text_chunk)
+                    except json.JSONDecodeError:
+                        continue
+
+    return EventSourceResponse(event_generator())

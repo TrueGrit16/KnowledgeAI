@@ -30,7 +30,7 @@ Context:
 Ticket:
 {req.topic}
 
-Output a one-paragraph summary and a ready-to-send ticket reply.
+Output a one-paragraph summary and a ready-to-send ticket reply. **When you answer, ALWAYS use markdown lists or sub-lists with numbered or bulleted steps.**
 """
         res = client.chat.completions.create(
             model="gpt-4",

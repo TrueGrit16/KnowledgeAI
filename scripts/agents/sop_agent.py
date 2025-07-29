@@ -27,7 +27,7 @@ def sop_generation(req: SOPRequest):
 Context:
 {context}
 
-Output in markdown-style numbered steps.
+Output in markdown-style numbered steps. **When you answer, ALWAYS use markdown lists or sub-lists with numbered or bulleted steps.**
 """
         res = client.chat.completions.create(
             model="gpt-4",
