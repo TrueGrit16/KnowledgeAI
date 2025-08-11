@@ -1,0 +1,66 @@
+{
+  "repo": "/Users/kundanjha/repo/KnowledgeAI",
+  "python": "3.11",
+  "requirements_guess": [
+    "Pillow",
+    "chromadb",
+    "click",
+    "fastapi",
+    "httpx",
+    "langchain",
+    "langchain_chroma",
+    "langchain_community",
+    "logconf",
+    "openai",
+    "pptx",
+    "pydantic",
+    "rich",
+    "sentence-transformers",
+    "sse_starlette",
+    "torch",
+    "transformers",
+    "unstructured",
+    "uvicorn"
+  ],
+  "stdlib_ignored": [
+    "ast",
+    "concurrent",
+    "datetime",
+    "hashlib",
+    "itertools",
+    "json",
+    "logging",
+    "mimetypes",
+    "os",
+    "pathlib",
+    "signal",
+    "subprocess",
+    "sys",
+    "traceback",
+    "uuid"
+  ],
+  "local_modules_detected": [
+    "backend",
+    "scripts"
+  ],
+  "unmapped_modules_review": [
+    "click",
+    "langchain_chroma",
+    "langchain_community",
+    "logconf",
+    "pptx",
+    "sse_starlette",
+    "unstructured"
+  ],
+  "executables_detected": [
+    "convert",
+    "ffmpeg",
+    "gs",
+    "magick",
+    "pdftoppm",
+    "pdftotext",
+    "soffice",
+    "tesseract",
+    "wkhtmltopdf"
+  ]
+}
