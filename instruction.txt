@@ -1,0 +1,35 @@
+git init
+git remote add origin https://github.com/TrueGrit16/KnowledgeAI.git
+git config --global user.name "TrueGrit16"
+config --global user.email “160136681+TrueGrit16@users.noreply.github.com”
+git add .
+git commit -m "Initial commit"
+git push -u origin main
+git push -u origin main --force
+git rm -r --cached vector_store/ -f
+
+
+git pull origin main  
+# make changes  
+git status  
+git add .  
+git commit -m "commit message"  
+git push origin main
+
+conda activate knowledge-ai
+
+python scripts/pipeline.py embed/all
+
+(knowledge-ai) kundan.jha@AMAXNJG79TVLF KnowledgeAI % ./scripts/check_embedding_progress.py
+153777/232517 → 66.1% complete
+
+sqlite3 vector_store/chroma.sqlite3 "SELECT count(*) FROM embeddings;"
+
+./agents_start.sh
+./agents_test.sh
+
+Before Backend folder:
+uvicorn backend.main:app --reload --port 8000
+
+Within Frontend folder:
+npm run dev
