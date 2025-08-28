@@ -15,3 +15,5 @@ frontend/.vite/
 *.log
 .env
 .venv/
+.DS_Store
+__pycache__/
