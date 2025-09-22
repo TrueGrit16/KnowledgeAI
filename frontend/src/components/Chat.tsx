@@ -129,24 +129,6 @@ export default function Chat() {
     }
   };
 
-/*  useEffect(() => {
-    const el = listRef.current;
-    if (!el) return;
-    let frame: number;
-    const atBottom = el.scrollHeight - el.scrollTop - el.clientHeight < 50;
-    function smoothScrollToBottom() {
-      const distance = el.scrollHeight - el.scrollTop - el.clientHeight;
-      if (distance < 1) return; // already at bottom
-      const step = Math.min(30, distance / 12);
-      el.scrollBy(0, step);
-      frame = requestAnimationFrame(smoothScrollToBottom);
-    }
-    if (atBottom) {
-      smoothScrollToBottom();
-    }
-    return () => cancelAnimationFrame(frame);
-  }, [turns]);*/
-
   useEffect(() => {
   const el = listRef.current;
   if (!el) return;
