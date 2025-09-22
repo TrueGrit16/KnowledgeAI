@@ -20,7 +20,7 @@ conda activate knowledge-ai
 
 python scripts/pipeline.py embed/all
 
-(knowledge-ai) kundan.jha@AMAXNJG79TVLF KnowledgeAI % ./scripts/check_embedding_progress.py
+(knowledge-ai) user@AMAXNJG79TVLF KnowledgeAI % ./scripts/check_embedding_progress.py
 153777/232517 → 66.1% complete
 
 sqlite3 vector_store/chroma.sqlite3 "SELECT count(*) FROM embeddings;"
